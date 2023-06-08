@@ -11,5 +11,5 @@ script that sets the mode of the a file
 script that set the mode of a file the same as another file's mode
 script that adds execute permission to all subdirectories of the currrent directory for the rowner, the group owner and all other users
 script that creates a directory with permissions specified permission
-script that changes the group owner to school for the file hello
+script that changes the group owner of a file to a specified group
 I am working on how to deal with shell permission
