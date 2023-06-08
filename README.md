@@ -1,1 +1,1 @@
-Writing a script to make my work easier
+my first repository on writing a script
