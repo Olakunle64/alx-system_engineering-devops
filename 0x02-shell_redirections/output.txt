@@ -1,0 +1,1 @@
+script that creates a file with a name containing special character
