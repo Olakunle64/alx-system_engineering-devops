@@ -1,2 +1,2 @@
 #!/bin/bash
-echo -e "$(printenv) $(set)\n" | declare -p
+echo -e "$(set) $(printenv)\n" | declare -p
