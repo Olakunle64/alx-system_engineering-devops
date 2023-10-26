@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#write a bash script that displays number from 1 to 100
+#display FizzBuzz when the number is a multiple of 3 and 5
+#display Fizz when the number is multiple of 3
+#display Buzz when the number is a multiple of 5
+
+count=1
+while [[ "$count" -le 100 ]]; do
+	if [ $(($count % 3)) -eq 0 ] && [ $(($count % 5)) -eq 0 ]; then
+		echo "FizzBuzz"
+	elif [ $(($count % 3)) -eq 0 ]; then
+		echo "Fizz"
+	elif [ $(($count % 5)) -eq 0 ]; then
+		echo "Buzz"
+	else
+		echo "$count"
+	fi
+	count=$(($count + 1))
+done
+
