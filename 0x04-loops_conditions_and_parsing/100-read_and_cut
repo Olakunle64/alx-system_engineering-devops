@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#write a bash script that display the content of etc/passwd
+for item in $(cut -d / -f 1,3,6 /etc/passwd); do echo "$item"; done
