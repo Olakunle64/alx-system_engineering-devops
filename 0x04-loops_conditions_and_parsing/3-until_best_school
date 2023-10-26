@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #This script is meant to print <Best School> 10 times with until
 count=0
-until [[ "$count" -gt 10 ]]; do
+until [[ "$count" -gt 9 ]]; do
 	echo "Best School"
 	count=$((count + 1)); done;
