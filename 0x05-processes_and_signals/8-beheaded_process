@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 #write a bash script that stops 7-highlander
-pid=$(pgrep -f "7-highlander")
-if [ -n "$pid" ]; then
-	kill -9 "$pid"
+if pgrep -x "7-highlander" > /dev/null; then
+	pkill -x "7-highlander"
 fi
