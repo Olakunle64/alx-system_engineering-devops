@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#write a bash script that display To infinity and beyond indefinitely
+while [[ "$count" -ne 2 ]]; do
+	echo "To infinity and beyond"
+	sleep 2;
+done
