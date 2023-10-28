@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #write a bash script that stops 7-highlander
 _pid=$(pgrep -f 7-highlander)
-kill -9 $_pid
+kill -9 "$_pid"
 
