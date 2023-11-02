@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#configure an ubuntu server with the below requirements
+cat <<EOL >> sudo /etc/hosts
+127.0.0.2 localhost
+8.8.8.8 facebook.com
+EOL
