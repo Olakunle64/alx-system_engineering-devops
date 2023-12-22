@@ -1,7 +1,7 @@
 # install the flask package with a specific version and provider
 
 # install python package of version 3.8.10
-package { 'python3':
+package { 'python3.8':
   ensure  => '3.8.10',
 }
 
