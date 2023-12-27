@@ -1,4 +1,4 @@
-Host OlakunleServer:
+Host olakunle
   HostName 100.25.205.228
   User ubuntu
   IdentityFile ~/.ssh/config
