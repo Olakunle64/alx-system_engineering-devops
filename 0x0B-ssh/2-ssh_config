@@ -1,5 +1,5 @@
 Host OlakunleServer:
-  Hostname 100.25.205.228
+  HostName 100.25.205.228
   User ubuntu
-  IdentifyFile ~/.ssh/config
+  IdentityFile ~/.ssh/config
   PasswordAuthentication no
