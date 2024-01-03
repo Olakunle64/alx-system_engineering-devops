@@ -4,18 +4,36 @@
 sudo apt-get -y update && sudo apt-get -y install nginx && sudo ufw allow 'Nginx HTTP'
 if command -v nginx &> /dev/null; then
         sudo chmod -R 755 /var/www
-	sudo mkdir -p /var/www/html
+        sudo mkdir -p /var/www/html
 
         # adjust the default html file to server another text
         cat <<EOF > /var/www/html/index.html
 Hello World!
 EOF
         # add redirect me
-	sudo sed -i '/location \/redirect_me {/!b;n;c\\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;' /etc/nginx/sites-enabled/default
-	# creating a symbolic link to the server block file
+        redirect_url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+        cat <<EOF > /etc/nginx/sites-available/default
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location /redirect_me {
+                # First attempt to serve request as file, then
+                # add a redirection to a particular url
+                return 301 $redirect_url;
+        }
+}
+EOF
+        # creating a symbolic link to the server block file
         nginx_conf="/etc/nginx/nginx.conf"
         sudo cp "$nginx_conf" "$nginx_conf.bak"
         # removing comment from a line in a file
         sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/g' "$nginx_conf"
-	service nginx restart
+        # restart the web server to update the changes made
+        service nginx restart
 fi

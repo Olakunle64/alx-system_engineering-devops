@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+old_pattern='location \/ {'
+new_pattern='location / {
+    return 301 https://www.example.com;
+}'
+
+awk -v old="$old_pattern" -v new="$new_pattern" '
+  $0 ~ old {
+    printing = 1
+    print new
+    next
+  }
+  printing && /}/ {
+    printing = 0
+    next
+  }
+  !printing
+' some_page.html > temp_file
+
+mv temp_file some_page.html
+
