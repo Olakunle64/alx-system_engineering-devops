@@ -15,5 +15,4 @@ EOF
         sudo cp "$nginx_conf" "$nginx_conf.bak"
         # removing comment from a line in a file
         sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/g' "$nginx_conf"
-        sudo systemctl reload nginx
 fi
