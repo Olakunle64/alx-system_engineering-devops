@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# install nginx on the server
+
+sudo apt-get -y update && sudo apt-get -y install nginx && sudo ufw allow 'Nginx HTTP'
+if 1-install_nginx_web_server; then
+        sudo mkdir -p /var/www/100.25.205.228/html
+        sudo chmod -R 755 /var/www
+
+        # creating the html page that will be served
+        cat <<EOF > /var/www/100.25.205.228/html/index.html
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+    </body>
+</html>
+EOF
+        # creating the server block file
+        cat <<EOF > /etc/nginx/sites-available/100.25.205.228
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/100.25.205.228/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name 100.25.205.228 www.100.25.205.228;
+
+        location / {
+                try_files \$uri \$uri/ =404;
+        }
+}
+EOF
+        # creating a symbolic link to the server block file
+        sudo ln -s /etc/nginx/sites-available/100.25.205.228 /etc/nginx/sites-enabled/
+        nginx_conf="/etc/nginx/nginx.conf"
+        sudo cp "$nginx_conf" "$nginx_conf.bak"
+        # removing comment from a line in a file
+        sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/g' "$nginx_conf"
+        sudo systemctl reload nginx
+fi
