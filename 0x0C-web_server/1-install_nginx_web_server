@@ -2,7 +2,7 @@
 # install nginx on the server
 
 sudo apt-get -y update && sudo apt-get -y install nginx && sudo ufw allow 'Nginx HTTP'
-if 1-install_nginx_web_server; then
+if command -v nginx &> /dev/null; then
         sudo chmod -R 755 /var/www
 	sudo mkdir -p /var/www/html
 
