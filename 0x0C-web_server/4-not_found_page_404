@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# install nginx on the server
+
+sudo apt-get -y update && sudo apt-get -y install nginx && sudo ufw allow 'Nginx HTTP'
+if command -v nginx &> /dev/null; then
+        sudo chmod -R 755 /var/www
+        sudo mkdir -p /var/www/html
+
+        # adjust the default html file to server another text
+        cat <<EOF > /var/www/html/index.html
+Hello World!
+EOF
+	# write the content of the custome_404.html
+	cat <<EOF > /usr/share/nginx/html/custom_404.html
+Ceci n'est pas une page
+EOF
+	
+        # add redirect me
+        redirect_url="https://www.chess.com/"
+        cat <<EOF > /etc/nginx/sites-available/default
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+	
+	location /redirect_me {
+                # First attempt to serve request as file, then
+                # add a redirection to a particular url
+                return 301 $redirect_url;
+        }
+
+	# add a custome error page
+	error_page 404 /custom_404.html;
+	location = /custom_404.html {
+		root /usr/share/nginx/html;
+		internal; 
+	}
+}
+EOF
+        # creating a symbolic link to the server block file
+        nginx_conf="/etc/nginx/nginx.conf"
+        sudo cp "$nginx_conf" "$nginx_conf.bak"
+        # removing comment from a line in a file
+        sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/g' "$nginx_conf"
+        # restart the web server to update the changes made
+        service nginx restart
+fi
