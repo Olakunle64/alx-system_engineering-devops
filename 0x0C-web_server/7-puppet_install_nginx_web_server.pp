@@ -15,7 +15,7 @@ package { 'nginx':
 
 # allow the webserver to listion on port 80
 exec { 'Nginx HTTP':
-  command => 'ufw allow "Nginx HTTP"',
+  command => '/usr/sbin/ufw allow "Nginx HTTP"',
 }
 
 # ensure this directory has the mode
@@ -56,7 +56,7 @@ server {
 	location / {
         	# First attempt to serve request as file, then
         	# as directory, then fall back to displaying a 404.
-        	try_files ${uri} ${uri}/ =404;
+        	try_files \${uri} \${uri}/ =404;
     	}	
 }",
 }
