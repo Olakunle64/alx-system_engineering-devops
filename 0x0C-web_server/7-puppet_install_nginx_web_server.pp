@@ -53,13 +53,19 @@ server {
                 # add a redirection to a particular url
                 return 301 https://www.chess.com/;
         }
+	location / {
+        	# First attempt to serve request as file, then
+        	# as directory, then fall back to displaying a 404.
+        	try_files $uri $uri/ =404;
+    	}	
 }",
 }
 
 # restart nginx
-exec { 'restart nginx':
-  command => 'service nginx restart',
-  path    => '/usr/sbin:/usr/bin',
+service { 'nginx':
+  ensure    => 'running',
+  enable    => true,
+  subscribe => File['/etc/nginx/sites-available/default'],
 }
 
 
