@@ -59,6 +59,7 @@ server {
 # restart nginx
 exec { 'restart nginx':
   command => 'service nginx restart',
+  path    => '/usr/sbin:/usr/bin',
 }
 
 
