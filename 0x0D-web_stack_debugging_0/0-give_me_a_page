@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# installing apache web server on a server and also configuring it to server a page
+
+# installing apache
+sudo apt-get update && sudo apt-get install apache2 && sudo service apache2 start
+if command -v apache2 &> /dev/null; then
+	sudo mkdir -p /var/www/html
+	sudo cat <<EOF > /var/www/html/index.html
+Hello Holberton
+EOF
+	sudo sed -i 's@DocumentRoot /var/www/html@DocumentRoot /var/www/html@' /etc/apache2/sites-available/000-default.conf
+	sudo service apache2 restart
+fi
+
