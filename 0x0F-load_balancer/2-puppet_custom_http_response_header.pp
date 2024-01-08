@@ -35,11 +35,13 @@ file { '/var/www/html/index.html':
   content => 'Hello World!'
 }
 
-# configure the default server block
-file { '/etc/nginx/sites-available/default':
+# create a file with a content
+file { '/var/www/html/index.html':
   ensure  => present,
-  content => "\
-server {
+  content => 'Hello World!'
+}
+
+$serverBlock="server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
@@ -47,23 +49,26 @@ server {
         index index.html index.htm index.nginx-debian.html;
 
         server_name _;
-	# add a custom header to the response header
-	add_header X-Served-By \$hostname;
+        # add a custom header to the response header
+        add_header X-Served-By $hostname;
 
         location /redirect_me {
                 # First attempt to serve request as file, then
                 # add a redirection to a particular url
                 return 301 https://www.chess.com/;
         }
-	# add a custome error page
+        # add a custome error page
         error_page 404 /custom_404.html;
         location = /custom_404.html {
                 root /usr/share/nginx/html;
                 internal;
-        }	
-}",
+        }
+}"
+# configure the default server block
+file { '/etc/nginx/sites-available/default':
+  ensure  => present,
+  content => $serverBlock
 }
-
 # restart nginx
 service { 'nginx':
   ensure    => 'running',
