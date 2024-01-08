@@ -41,7 +41,7 @@ file { '/var/www/html/index.html':
   content => 'Hello World!'
 }
 
-$serverBlock="server {
+$serverblock="server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
@@ -50,7 +50,7 @@ $serverBlock="server {
 
         server_name _;
         # add a custom header to the response header
-        add_header X-Served-By $hostname;
+        add_header X-Served-By ${hostname};
 
         location /redirect_me {
                 # First attempt to serve request as file, then
@@ -67,7 +67,7 @@ $serverBlock="server {
 # configure the default server block
 file { '/etc/nginx/sites-available/default':
   ensure  => present,
-  content => $serverBlock
+  content => $serverblock
 }
 # restart nginx
 service { 'nginx':
