@@ -48,7 +48,8 @@ server {
 
         server_name _;
 	# add a custom header to the response header
-	add_header X-Served-By \${hostname};
+	add_header X-Served-By \$hostname;
+
         location /redirect_me {
                 # First attempt to serve request as file, then
                 # add a redirection to a particular url
