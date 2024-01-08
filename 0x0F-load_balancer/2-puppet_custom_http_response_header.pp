@@ -1,6 +1,4 @@
-# creating a puppet to set up a nginx web server on a server
-# the nginx should listen to port 80
-# The redirection must be a "301 Moved Permanently"
+# create a puppet to add a custom header to a response header on nginx server
 
 # update the server
 exec { 'apt-update':
@@ -32,7 +30,7 @@ file { '/var/www/html':
 # create a file with a content
 file { '/var/www/html/index.html':
   ensure  => present,
-  content => 'Hello World!\n'
+  content => 'Hello World!'
 }
 
 # create a file with a content
