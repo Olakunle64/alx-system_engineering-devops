@@ -47,17 +47,19 @@ server {
         index index.html index.htm index.nginx-debian.html;
 
         server_name _;
-	add_header X-Served-By \${(hostname)}
+	# add a custom header to the response header
+	add_header X-Served-By \${hostname};
         location /redirect_me {
                 # First attempt to serve request as file, then
                 # add a redirection to a particular url
                 return 301 https://www.chess.com/;
         }
-	location / {
-        	# First attempt to serve request as file, then
-        	# as directory, then fall back to displaying a 404.
-        	try_files \${uri} \${uri}/ =404;
-    	}	
+	# add a custome error page
+        error_page 404 /custom_404.html;
+        location = /custom_404.html {
+                root /usr/share/nginx/html;
+                internal;
+        }	
 }",
 }
 
