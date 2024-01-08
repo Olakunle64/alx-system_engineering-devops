@@ -19,7 +19,7 @@ EOF
 	
         # add redirect me
         redirect_url="https://www.chess.com/"
-	hostName=$(hostname)
+	the_hostname=$(hostname)
         cat <<EOF > /etc/nginx/sites-available/default
 server {
         listen 80 default_server;
@@ -29,7 +29,7 @@ server {
         index index.html index.htm index.nginx-debian.html;
 
         server_name _;
-	add_header X-Served-By \"$hostName\";
+	add_header X-Served-By $the_hostname;
 	
 	location /redirect_me {
                 # First attempt to serve request as file, then
