@@ -32,7 +32,7 @@ file { '/var/www/html':
 # create a file with a content
 file { '/var/www/html/index.html':
   ensure  => present,
-  content => 'Hello World!'
+  content => 'Hello World!\n'
 }
 
 # create a file with a content
@@ -50,6 +50,15 @@ $serverblock="server {
 
         server_name _;
         add_header X-Served-By $hostname;
+
+        location /redirect_me {
+                return 301 https://www.chess.com/;
+        }
+        error_page 404 /custom_404.html;
+        location = /custom_404.html {
+                root /usr/share/nginx/html;
+                internal;
+        }
 }"
 
 # configure the default server block
