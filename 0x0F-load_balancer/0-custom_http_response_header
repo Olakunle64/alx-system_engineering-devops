@@ -29,7 +29,7 @@ server {
         index index.html index.htm index.nginx-debian.html;
 
         server_name _;
-	add_header X-Served-By $(hostName);
+	add_header X-Served-By $hostName;
 	
 	location /redirect_me {
                 # First attempt to serve request as file, then
