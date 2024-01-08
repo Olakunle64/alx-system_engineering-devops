@@ -20,6 +20,7 @@ EOF
         # add redirect me
         redirect_url="https://www.chess.com/"
 	hostName=$(hostname)
+	IPaddress=$(hostname -i)
         cat <<EOF > /etc/nginx/sites-available/default
 server {
         listen 80 default_server;
@@ -28,7 +29,7 @@ server {
         root /var/www/html;
         index index.html index.htm index.nginx-debian.html;
 
-        server_name _;
+        server_name $IPaddress;
 	add_header X-Served-By $hostName;
 	
 	location /redirect_me {
