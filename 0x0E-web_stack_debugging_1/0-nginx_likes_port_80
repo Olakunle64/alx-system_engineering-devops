@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# dubug nginx web server to listen to all traffic on port 80
+
+sudo apt-get -y update && sudo apt-get -y install nginx && sudo ufw allow 'Nginx HTTP'
+if command -v nginx &> /dev/null; then
+        sudo chmod -R 755 /var/www
+        sudo mkdir -p /var/www/html
+
+        cat <<EOF > /etc/nginx/sites-available/default
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+}
+EOF
+        # creating a symbolic link to the server block file
+        nginx_conf="/etc/nginx/nginx.conf"
+        sudo cp "$nginx_conf" "$nginx_conf.bak"
+        # removing comment from a line in a file
+        sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/g' "$nginx_conf"
+        # restart the web server to update the changes made
+        service nginx restart
+fi
