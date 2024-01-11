@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Configure your domain zone so that the subdomain www points to your load-balancer IP (lb-01).
+# Let’s also add other subdomains to make our life easier, and write a Bash script that will
+# display information about subdomains
+
+#validate the number of argument passed
+validate_arg () {
+	if [ "$#" -lt 1 ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+domain=$1
+subdomain=$2
+check=$(validate_arg)
+
+if [ "$check" -eq 1 ]; then
+	echo "Domain name is mandatory"
+else
+	# check if subdomain is not empty
+	if [ -n "$subdomain" ]; then
+		record=$(dig $subdomain.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $2}')
+		destination=$(dig $subdomain.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $3}')
+		echo "The subdomain $subdomain is a $record record and points to $destination"
+	else
+		record=$(dig www.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $2}')
+		destination=$(dig www.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $3}')
+		echo "The subdomain $subdomain is a $record record and points to $destination"
+		record=$(dig lb-01.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $2}')
+		destination=$(dig lb-01.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $3}')
+		echo "The subdomain $subdomain is a $record record and points to $destination"
+		record=$(dig web-01.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $2}')
+                destination=$(dig web-01.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $3}')
+                echo "The subdomain $subdomain is a $record record and points to $destination"
+                record=$(dig web-02.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $2}')
+                destination=$(dig web-02.agroelectronics.tech | grep -A1 'ANSWER SECTION:' | awk '$4=="A" {sub(/\.$/, ""); print $1, $4, $5}' | awk '{print $3}')
+		echo "The subdomain $subdomain is a $record record and points to $destination"
+	fi
+fi
