@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-
 # Function to fetch record type and destination for a subdomain
+
 domain=$1
 get_dns_info() {
     local subdomain=$1
