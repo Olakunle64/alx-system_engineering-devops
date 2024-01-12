@@ -1,0 +1,13 @@
+frontend www-https
+    bind *:443 ssl crt /etc/letsencrypt/live/www.agroelectronics.tech/fullchain.pem
+    http-request redirect scheme https unless { ssl_fc }
+    mode http
+    timeout server 30s
+    default_backend web_servers
+
+backend web_servers
+    balance roundrobin
+    mode http
+    timeout server 30s
+    server web-01 100.25.205.228:80 check
+    server web-02 100.25.211.79:80 check
