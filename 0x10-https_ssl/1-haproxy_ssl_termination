@@ -1,6 +1,9 @@
-frontend www-https
-    bind *:443 ssl crt /etc/letsencrypt/live/www.agroelectronics.tech/fullchain.pem
-    http-request redirect scheme https unless { ssl_fc }
+global
+    ssl-dh-param-file /etc/haproxy/dhparams.pem
+frontend web
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/certs/www.agroelectronics.tech.pem
+    redirect scheme https code 301 if !{ ssl_fc }
     mode http
     timeout server 30s
     default_backend web_servers
