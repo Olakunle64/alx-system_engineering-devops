@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
 # dubug nginx web server to listen to all traffic on port 80
-sudo apt-get -y update && sudo apt-get -y install nginx
+
+# Specify the path to your Nginx configuration file
+nginx_conf="/etc/nginx/nginx.conf"
+
+# Define the new port you want to use
+new_port=80
+
+# Use sed to replace the old listen directive with the new one
+sed -i "s/listen [0-9]\+;/listen $new_port;/" $nginx_conf"
+
 sudo service nginx restart
