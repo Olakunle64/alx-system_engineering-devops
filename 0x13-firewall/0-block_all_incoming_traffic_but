@@ -5,7 +5,9 @@
 # 80 (HTTP)
 
 # Installed ufw if it is not already installed
-sudo apt update && sudo apt install ufw
+if command -v ufw &> /dev/null; then
+	sudo apt update && sudo apt install ufw
+fi
 
 # Set default policies to deny incoming and allow outgoing traffic
 sudo ufw default deny incoming
