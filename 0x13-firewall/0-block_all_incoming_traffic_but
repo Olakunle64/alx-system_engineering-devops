@@ -9,9 +9,12 @@ if command -v ufw &> /dev/null; then
 	sudo apt update && sudo apt install ufw
 fi
 
+#force reset incase ufw has already been configured
+sudo ufw --force reset
+
 # Set default policies to deny incoming and allow outgoing traffic
 sudo ufw default deny incoming
-# sudo ufw default allow outgoing
+sudo ufw default allow outgoing
 
 # Allow SSH (port 22), HTTPS (port 443), and HTTP (port 80)
 sudo ufw allow 22/tcp
@@ -19,4 +22,4 @@ sudo ufw allow 443/tcp
 sudo ufw allow 80/tcp
 
 # Enable UFW and do not disrupt the existing ssh connection
-sudo ufw enable
+echo 'n' | sudo ufw enable
