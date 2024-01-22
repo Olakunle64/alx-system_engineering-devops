@@ -1,31 +1,6 @@
 #!/usr/bin/env bash
 # Configure web-01 so that its firewall redirects port 8080/TCP to port 80/TCP.
-
-if command -v ufw &> /dev/null; then
-        sudo apt update && sudo apt install ufw
-fi
-
-#force reset incase ufw has already been configured
-sudo ufw --force reset
-
-# Set default policies to deny incoming and allow outgoing traffic
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-
-# Allow SSH (port 22), HTTPS (port 443), and HTTP (port 80)
-sudo ufw allow 22/tcp
-sudo ufw allow 443/tcp
-sudo ufw allow 80/tcp
-
-# redirect port 8080 to 80
-sudo tee -a /etc/ufw/before.rules <<EOF
 *nat
 :PREROUTING ACCEPT [0:0]
 -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
 COMMIT
-
-*filter
-EOF
-
-# enable the ufw
-echo 'n' | sudo ufw enable
