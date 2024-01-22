@@ -16,5 +16,5 @@ sudo ufw allow 22/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 80/tcp
 
-# Enable UFW
-sudo ufw enable
+# Enable UFW and do not disrupt the existing ssh connection
+echo 'n' | sudo ufw enable
