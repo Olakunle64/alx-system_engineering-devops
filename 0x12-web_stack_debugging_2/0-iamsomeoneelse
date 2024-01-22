@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Write a Bash script that accepts one argument.
+# This script should run the whoami command under the user passed as an argument
+
+if [ -n "$1" ]; then
+	sudo -u "$1" whoami
+else
+	echo "***missing user***"
+fi
