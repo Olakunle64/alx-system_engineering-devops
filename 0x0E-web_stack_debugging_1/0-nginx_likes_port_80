@@ -5,6 +5,6 @@
 nginx_conf="/etc/nginx/nginx.conf"
 
 # Use sed to replace the old listen directive with the new one
-sed -i "s/listen [0-9]\+ default_server;/listen 80 default_server;/" /etc/nginx/sites-available/default
+sed -i "s/listen [0-9]\+ default_server;/listen 80 default_server;/" "$nginx_conf"
 
 sudo service nginx restart
