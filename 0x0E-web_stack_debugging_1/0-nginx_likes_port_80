@@ -4,10 +4,7 @@
 # Specify the path to your Nginx configuration file
 nginx_conf="/etc/nginx/nginx.conf"
 
-# Define the new port you want to use
-new_port=80
-
 # Use sed to replace the old listen directive with the new one
-sed -i "s/listen [0-9]\+;/listen $new_port;/" $nginx_conf
+sed -i "s/listen [0-9]\+ default_server;/listen 80 default_server;/" /etc/nginx/sites-available/default
 
 sudo service nginx restart
