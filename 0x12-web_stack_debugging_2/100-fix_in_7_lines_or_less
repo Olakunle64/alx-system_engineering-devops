@@ -2,6 +2,6 @@
 # fix a nginx webserver to run on an nginx user with less privillege
 sed -i "1 i\user nginx"$'\x3B' /etc/nginx/nginx.conf
 chmod 644 /etc/nginx/nginx.conf
-sed -i 's/80/8080;/g' /etc/nginx/sites-available/default
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default
 kill "$(lsof -i:8080 -t)"
-su nginx -c 'service nginx restart
+su nginx -s /bin/bash -c 'service nginx restart'
