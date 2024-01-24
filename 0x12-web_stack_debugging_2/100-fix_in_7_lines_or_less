@@ -4,4 +4,4 @@ sed -i '1 i/user nginx;' /etc/nginx/nginx.conf
 chmod 644 /etc/nginx/nginx.conf
 sed -i 's/80/8080;/g' /etc/nginx/sites-available/default
 kill "$(lsof -i:8080 -t)"
-su nginx -c 'service nginx rest
+su nginx -c 'service nginx restart
