@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # fix a nginx webserver to run on an nginx user with less privillege
 
-# stop the nginx server
-service nginx stop
 
 # add the nginx user if it doesn't exist
 useradd -s /sbin/nologin -r -M nginx
@@ -14,4 +12,4 @@ sed -i '1 i/user nginx;' /etc/nginx/nginx.conf
 sed -i 's/80/8080;/g' /etc/nginx/sites-available/default
 
 # Start Nginx with the updated configuration
-service nginx start
+su nginx -c 'service nginx restart'
