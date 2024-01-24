@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 # fix a nginx webserver to run on an nginx user with less privillege
 
-
-# add the nginx user if it doesn't exist
-useradd -s /sbin/nologin -r -M nginx
-
 # Update the Nginx configuration to run as the nginx user
 sed -i '1 i/user nginx;' /etc/nginx/nginx.conf
+
+chmod 644 /etc/nginx/nginx.conf
 
 # Update the default site configuration to listen on all active IPs on port 8080
 sed -i 's/80/8080;/g' /etc/nginx/sites-available/default
 
+kill "$(lsof -i:8080 -t)"
 # Start Nginx with the updated configuration
 su nginx -c 'service nginx restart'
