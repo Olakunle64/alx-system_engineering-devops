@@ -3,6 +3,7 @@
     employee ID, export information about his/her TODO list progress
     to a csv file.
     """
+import csv
 import requests
 import sys
 
@@ -21,6 +22,7 @@ if __name__ == "__main__":
         TITLE = each_todo.get("title")
         data = f"\"{user_id}\",\"{USERNAME}\",\"{COMP_STATUS}\",\"{TITLE}\"\n"
         full_csv_list.append(data)
-    with open(csv_filename, 'w', encoding="utf-8") as f:
+    with open(csv_filename, 'w', newline='') as f:
+        csv_writer = csv.writer(f)
         for data in full_csv_list:
-            f.write(data)
+            csv_writer.writerows(data)
