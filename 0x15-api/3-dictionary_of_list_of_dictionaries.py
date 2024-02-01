@@ -10,15 +10,16 @@ import sys
 if __name__ == "__main__":
     filename = "todo_all_employees.json"
     big_dict = {}
-    for user_id in range(1, 11):
+    users = requests.get(
+            f'https://jsonplaceholder.typicode.com/users/')
+    for user in users.json():
+        id = str(user.get("id"))
         todo = requests.get(
-                f'https://jsonplaceholder.typicode.com/todos?userId={user_id}')
-        user = requests.get(
-                f'https://jsonplaceholder.typicode.com/users/{user_id}')
+                f'https://jsonplaceholder.typicode.com/todos?userId={id}')
         # print(user.text)
-        emp_name = user.json().get("username")
+        emp_name = user.get("username")
         # print(emp_name)
-        id = str(user.json().get("id"))
+        # id = str(user.json().get("id"))
         todo_dict = {}
         todo_dict[id] = []
         todo_list = todo.json()
