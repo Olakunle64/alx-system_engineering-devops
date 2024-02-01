@@ -15,6 +15,7 @@ if __name__ == "__main__":
     user = requests.get(
             f'https://jsonplaceholder.typicode.com/users/{user_id}')
     emp_name = user.json().get("name")
+    user_id = user.json().get("id")
 
     todo_list = todo.json()
 
