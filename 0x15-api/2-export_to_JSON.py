@@ -14,7 +14,7 @@ if __name__ == "__main__":
             f'https://jsonplaceholder.typicode.com/todos?userId={user_id}')
     user = requests.get(
             f'https://jsonplaceholder.typicode.com/users/{user_id}')
-    emp_name = user.json().get("name")
+    emp_name = user.json().get("username")
     todo_dict = {}
     todo_dict[str(user_id)] = []
     todo_list = todo.json()
