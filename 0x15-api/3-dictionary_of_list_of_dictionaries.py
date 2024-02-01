@@ -29,5 +29,5 @@ if __name__ == "__main__":
             small_dict["username"] = str(emp_name)
             todo_dict[id].append(small_dict)
         big_dict[id] = todo_dict[id]
-        with open(filename, "w") as f:
-            json.dump(big_dict, f)
+    with open(filename, "w") as f:
+        json.dump(big_dict, f)
