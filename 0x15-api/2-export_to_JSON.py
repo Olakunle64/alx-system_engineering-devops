@@ -20,8 +20,8 @@ if __name__ == "__main__":
     todo_list = todo.json()
     for each_todo in todo_list:
         small_dict = {}
-        small_dict["task"] = str(each_todo["title"])
-        small_dict["completed"] = str(each_todo["completed"])
+        small_dict["task"] = str(each_todo.get("title"))
+        small_dict["completed"] = str(each_todo.get("completed"))
         small_dict["username"] = str(emp_name)
         todo_dict[str(user_id)].append(small_dict)
     with open(filename, "w") as f:
