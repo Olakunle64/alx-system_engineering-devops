@@ -16,15 +16,16 @@ if __name__ == "__main__":
         user = requests.get(
                 f'https://jsonplaceholder.typicode.com/users/{user_id}')
         emp_name = user.json().get("name")
+        id = str(user.json().get("id"))
         todo_dict = {}
-        todo_dict[str(user_id)] = []
+        todo_dict[id] = []
         todo_list = todo.json()
         for each_todo in todo_list:
             small_dict = {}
             small_dict["task"] = str(each_todo["title"])
             small_dict["completed"] = str(each_todo["completed"])
             small_dict["username"] = str(emp_name)
-            todo_dict[str(user_id)].append(small_dict)
-        big_dict[str(user_id)] = todo_dict[str(user_id)]
+            todo_dict[id].append(small_dict)
+        big_dict[id] = todo_dict[id]
         with open(filename, "w") as f:
             json.dump(big_dict, f)
