@@ -7,7 +7,7 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=""):
+def count_words(subreddit, word_list, after=""):
     """queries the Reddit API
 
         Args:
@@ -15,15 +15,18 @@ def recurse(subreddit, hot_list=[], after=""):
 
         Return: return the number of subreddit
     """
+    word_list = list(set(word_list))
+    values = [0] * len(word_list)
+    word_count = dict(zip(word_count, values))
     url = "https://www.reddit.com/r/{}/new.json?after={}".format(
             subreddit, after)
     header = {"User-Agent": "Chrome/97.0.4692.71"}
     r = requests.get(url, headers=header, allow_redirects=False)
     if r.status_code != 200:
         print(None)
-    subreddit_info = r.json().get("data", {})
+    subreddit_info = r.json()["data"]
     after = subreddit_info.get("after")
-    posts = subreddit_info.get("children", [])
+    posts = subreddit_info["children"]
     if posts:
         post = posts.pop(0)
         post_title = post.get("data").get("title")
