@@ -16,8 +16,8 @@ def number_of_subscribers(subreddit):
         Return: return the number of subreddit
     """
     url = "https://www.reddit.com/r/" + subreddit + "/about.json"
-    header = {"User-Agent": "Chrome/97.0.4692.71"}
-    r = requests.get(url, headers=header, allow_redirects=False)
+    # header = {"User-Agent": "Chrome/97.0.4692.71"}
+    r = requests.get(url, allow_redirects=False)
     if r.status_code != 200:
         return 0
     return r.json()["data"]["subscribers"]
