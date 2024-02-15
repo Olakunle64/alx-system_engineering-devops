@@ -7,7 +7,7 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=None):
+def recurse(subreddit, hot_list=[], after=""):
     """queries the Reddit API
 
         Args:
