@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """ This module contains a recursive function that queries the Reddit
-    API and returns a list containing the titles of all hot articles
-    for a given subreddit. If no results are found for the given
-    subreddit, the function should return None.
+    API, parses the title of all hot articles, and prints a sorted count
+    of given keywords (case-insensitive, delimited by spaces.
+    Javascript should count as javascript, but java should not).
 """
 import requests
 
@@ -12,14 +12,11 @@ def sub_count_words(subreddit, word_list, word_count, after=""):
 
         Args:
             subreddit: a string
+            word_list: a list
+            word_count: a dict
+            after: a string
 
-        Return: return the number of subreddit
-    """
-    """
-    if not after:
-        unique_word_list = list(set(word_list))
-        values = [0] * len(word_list)
-        word_count = dict(zip(word_count, values))
+        Return: void
     """
     if after:
         url = "https://www.reddit.com/r/{}/new.json?after={}".format(
