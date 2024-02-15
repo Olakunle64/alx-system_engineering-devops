@@ -7,7 +7,7 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=""):
+def recurse(subreddit, hot_list=[], after=None):
     """queries the Reddit API
 
         Args:
@@ -23,7 +23,7 @@ def recurse(subreddit, hot_list=[], after=""):
     header = {"User-Agent": "Chrome/97.0.4692.71"}
     r = requests.get(url, headers=header, allow_redirects=False)
     if r.status_code != 200:
-        print(None)
+        return None
     subreddit_info = r.json().get("data", {})
     after = subreddit_info.get("after")
     posts = subreddit_info.get("children", [])
