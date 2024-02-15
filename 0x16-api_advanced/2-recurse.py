@@ -15,8 +15,11 @@ def recurse(subreddit, hot_list=[], after=""):
 
         Return: return the number of subreddit
     """
-    url = "https://www.reddit.com/r/{}/new.json?after={}".format(
-            subreddit, after)
+    if after:
+        url = "https://www.reddit.com/r/{}/new.json?after={}".format(
+                subreddit, after)
+    else:
+        url = "https://www.reddit.com/r/{}/new.json".format(subreddit)
     header = {"User-Agent": "Chrome/97.0.4692.71"}
     r = requests.get(url, headers=header, allow_redirects=False)
     if r.status_code != 200:
@@ -24,12 +27,10 @@ def recurse(subreddit, hot_list=[], after=""):
     subreddit_info = r.json().get("data", {})
     after = subreddit_info.get("after")
     posts = subreddit_info.get("children", [])
-    if posts:
-        post = posts.pop(0)
+    for post in posts:
         post_title = post.get("data").get("title")
         # print(post_title)
         hot_list.append(post_title)
-        return (recurse(subreddit, hot_list, after))
     if not after:
         return hot_list
     else:

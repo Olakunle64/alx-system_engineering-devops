@@ -26,4 +26,4 @@ def top_ten(subreddit):
             post_title = post.get("data").get("title")
             print(post_title)
     except json.decoder.JSONDecodeError:
-        pass
+        None
