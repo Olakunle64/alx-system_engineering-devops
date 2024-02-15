@@ -3,8 +3,6 @@
 import requests
 
 # Replace 'YOUR_API_KEY' with your Datadog API key
-api_key = '64d26ba37cf574897ab135b33478e4aa'
-api = '62ad4b60ae4e83bf2946a6b8e9d8ac97d54f17df'
 headers = {'DD-API-KEY': api_key, 'DD-APPLICATION-KEY': api}
 
 # Datadog API endpoint for retrieving dashboard list
