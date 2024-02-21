@@ -46,7 +46,7 @@ server {
 
         location /static/ {
                 proxy_pass http://127.0.0.1:5003;
-                alias /path/to/AirBnB_clone_v4/web_dynamic/static/;
+                # alias /path/to/AirBnB_clone_v4/web_dynamic/static/;
                 # expires 30d;
                 # access_log off;
         }
