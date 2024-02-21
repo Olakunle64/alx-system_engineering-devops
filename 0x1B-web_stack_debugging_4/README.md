@@ -1,1 +1,2 @@
-Fix nginx server having too many failed requests when overloaded
+- Fix nginx server having too many failed requests when overloaded
+- Increase file descriptor limits to prevent too many open files errors
