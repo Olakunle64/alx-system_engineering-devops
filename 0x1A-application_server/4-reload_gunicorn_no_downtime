@@ -2,10 +2,10 @@
 # reload Gunicorn in a graceful way
 
 # Find the process IDs (PIDs) of the Gunicorn workers
-pids=$(ps aux | grep 'gunicorn' | grep -v 'grep' | awk '{print $2}')
+pids=$(pgrep gunicorn)
 
 # Send a SIGHUP signal to the master process ID (PID) of Gunicorn
-kill -s SIGHUP $pids
+kill -s SIGHUP "$pids"
 
 # Wait for the reload process to complete
 sleep 5
