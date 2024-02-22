@@ -4,28 +4,8 @@
 # Find the process IDs (PIDs) of the Gunicorn workers
 pids=$(pgrep gunicorn)
 
-# Check if any Gunicorn processes are running
-if [ -z "$pids" ]; then
-    echo "Error: No Gunicorn processes found."
-    exit 1
-fi
-
-# Send a SIGHUP signal to each PID found
-if ! kill -s SIGHUP "$pids"; then
-    echo "Error: Failed to send SIGHUP signal to Gunicorn processes."
-    exit 1
-fi
+# Send a SIGHUP signal to the master process ID (PID) of Gunicorn
+kill -s SIGHUP "$pids"
 
 # Wait for the reload process to complete
 sleep 5
-
-# Check if any Gunicorn processes are still running after reload
-if pgrep -q gunicorn; then
-    echo "Gunicorn reload successful."
-else
-    echo "Error: Gunicorn reload failed."
-    exit 1
-fi
-
-exit 0
-
